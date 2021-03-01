@@ -1,11 +1,11 @@
-# Zero to Master - React Course (Master Project)
+# Zero to Mastery - React Course (Master Project)
 
-This repo is an updated codebase of the master projct in this course [This course](https://www.udemy.com/course/complete-react-developer-zero-to-mastery/).
+:recycle: This repo is an updated codebase of the master projct in this course [This course](https://www.udemy.com/course/complete-react-developer-zero-to-mastery/).
 
 ## Class VS Functional
 
 I went through this course 2 years ago.
-Definitely one of the best courses out there on React.
+Definitely one of the best courses out there on React. :fire:
 
 But the codebase is based on Class components, So as a practice I decided to convert the entire master project to functional components and use React hooks instead.
 
