@@ -8,7 +8,7 @@ const Hat = () => {
 
 function App() {
   return (
-    <div className='App'>
+    <div>
       <Switch>
         <Route exact path='/' component={Home} />
         <Route exact path='/hats' component={Hat} />
