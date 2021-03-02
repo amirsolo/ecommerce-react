@@ -2,6 +2,8 @@
 
 :recycle: This repo is an updated codebase of the master projct in this course [This course](https://www.udemy.com/course/complete-react-developer-zero-to-mastery/).
 
+Converted the codebase to functional components, using react hooks and etc.
+
 ## Class VS Functional
 
 I went through this course 2 years ago.
