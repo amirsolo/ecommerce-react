@@ -18,7 +18,7 @@ const SignIn = () => {
   const handleChange = (event) => {
     const { value, name } = event.target
 
-    setFormState({ [name]: value })
+    setFormState({ ...formState, [name]: value })
   }
 
   const { email, password } = formState
