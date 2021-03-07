@@ -11,6 +11,7 @@ import Auth from './pages/Auth/Auth'
 
 // Components
 import Header from './components/Header/Header'
+import OverlaySpinner from './components/OverlaySpinner/OverlaySpinner'
 
 class App extends React.Component {
   constructor(props) {
@@ -38,15 +39,22 @@ class App extends React.Component {
   }
 
   render() {
+    const { authLoading, user } = this.state
+
     return (
       <div>
-        <Header />
-        <div>{this.state.authLoading ? 'loading...' : 'go it'}</div>
-        <Switch>
-          <Route exact path='/' component={Home} />
-          <Route exact path='/shop' component={Shop} />
-          <Route path='/auth' component={Auth} />
-        </Switch>
+        {authLoading ? (
+          <OverlaySpinner />
+        ) : (
+          <div>
+            <Header user={user} />
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route exact path='/shop' component={Shop} />
+              <Route path='/auth' component={Auth} />
+            </Switch>
+          </div>
+        )}
       </div>
     )
   }
