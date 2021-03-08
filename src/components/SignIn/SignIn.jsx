@@ -1,5 +1,5 @@
 import React from 'react'
-import { signInWithGoogle } from '../../utils/firebase'
+import { auth, signInWithGoogle } from '../../utils/firebase'
 
 // components
 import FormInput from '../FormInput/FormInput'
@@ -17,8 +17,23 @@ class SignIn extends React.Component {
     }
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault()
+
+    const { email, password } = this.state
+
+    try {
+      // Sign in with email and password
+      await auth.signInWithEmailAndPassword(email, password)
+
+      // Clear out form inputs
+      this.setState({
+        email: '',
+        password: ''
+      })
+    } catch (error) {
+      console.error(error)
+    }
 
     this.setState({ email: '', password: '' })
   }
