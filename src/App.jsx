@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import { auth, createUserProfileDocument } from './utils/firebase'
 import './App.css'
 
@@ -48,7 +48,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { isUserLoading } = this.props
+    const { currentUser, isUserLoading } = this.props
 
     return (
       <div>
@@ -60,7 +60,10 @@ class App extends React.Component {
             <Switch>
               <Route exact path='/' component={Home} />
               <Route exact path='/shop' component={Shop} />
-              <Route path='/auth' component={Auth} />
+              <Route
+                path='/auth'
+                render={() => (!currentUser ? <Auth /> : <Redirect to='/' />)}
+              />
             </Switch>
           </div>
         )}
@@ -69,8 +72,9 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  isUserLoading: state.user.isUserLoading
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+  isUserLoading: user.isUserLoading
 })
 
 const mapDispatchToProps = (dispatch) => ({
