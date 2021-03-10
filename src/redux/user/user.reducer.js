@@ -1,4 +1,5 @@
 const INITIAL_STATE = {
+  isUserLoading: true,
   currentUser: null
 }
 
@@ -8,7 +9,8 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case 'SET_CURRENT_USER':
       return {
         ...state,
-        currentUser: payload
+        currentUser: payload,
+        isUserLoading: false
       }
     default:
       return state
