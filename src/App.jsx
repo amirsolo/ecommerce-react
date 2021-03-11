@@ -17,7 +17,7 @@ import Header from './components/Header/Header'
 import OverlaySpinner from './components/OverlaySpinner/OverlaySpinner'
 
 class App extends React.Component {
-  // initialized firebase auth unsubscribe function
+  // initialized "firebase auth unsubscribe" function
   unsubscribeFromAuth = null
 
   // set logged in user
