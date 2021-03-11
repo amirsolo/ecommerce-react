@@ -6,6 +6,11 @@ import './App.css'
 // Redux
 import { connect } from 'react-redux'
 import { setCurrentUser } from './redux/user/user.actions'
+import { createStructuredSelector } from 'reselect'
+import {
+  currentUserSelector,
+  isUserLoadingSelector
+} from './redux/user/user.selectors'
 
 // Pages
 import Home from './pages/Home/Home'
@@ -72,9 +77,9 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser,
-  isUserLoading: user.isUserLoading
+const mapStateToProps = createStructuredSelector({
+  currentUser: currentUserSelector,
+  isUserLoading: isUserLoadingSelector
 })
 
 const mapDispatchToProps = (dispatch) => ({
