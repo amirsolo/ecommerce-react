@@ -16,6 +16,7 @@ import {
 import Home from './pages/Home/Home'
 import Shop from './pages/Shop/Shop'
 import Auth from './pages/Auth/Auth'
+import Checkout from './pages/Checkout/Checkout'
 
 // Components
 import Header from './components/Header/Header'
@@ -65,6 +66,7 @@ class App extends React.Component {
             <Switch>
               <Route exact path='/' component={Home} />
               <Route exact path='/shop' component={Shop} />
+              <Route exact path='/checkout' component={Checkout} />
               <Route
                 path='/auth'
                 render={() => (!currentUser ? <Auth /> : <Redirect to='/' />)}
