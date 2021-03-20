@@ -9,7 +9,7 @@ const CollectionItem = ({ item, addItem }) => {
   const { name, price, imageUrl } = item
 
   return (
-    <div className='collection-item' onClick={(e) => addItem(item)}>
+    <div className='collection-item'>
       <div
         className='image'
         style={{
@@ -20,7 +20,13 @@ const CollectionItem = ({ item, addItem }) => {
         <span className='name'>{name}</span>
         <span className='price'>{price}</span>
       </div>
-      <CustomButton inverted>Add to cart</CustomButton>
+      <CustomButton
+        className='collection-item-button'
+        onClick={(e) => addItem(item)}
+        inverted
+      >
+        Add to cart
+      </CustomButton>
     </div>
   )
 }

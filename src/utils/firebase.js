@@ -11,6 +11,7 @@ const firebaseConfig = {
   appId: '1:1075775416521:web:aae87c7c66efb35030c518'
 }
 
+// Create newly registered user's profile in database
 const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return
 
@@ -37,6 +38,40 @@ const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef
 }
 
+// Modify and convert collections' array to hash table (objects) for client
+const convertCollectionsSnapshotToMap = (collections) => {
+  const transformedCollection = collections.docs.map((doc) => {
+    const { title, items } = doc.data()
+
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items
+    }
+  })
+
+  return transformedCollection.reduce((accumulator, collection) => {
+    accumulator[collection.title.toLowerCase()] = collection
+    return accumulator
+  }, {})
+}
+
+// Add shop collection data in DB
+const addCollectionAndDocumentsToDB = async (collectionKey, documentsArr) => {
+  const collectionRef = firestore.collection(collectionKey)
+
+  // make a firebase batch
+  const batch = firestore.batch()
+
+  documentsArr.forEach((doc) => {
+    const newDocRef = collectionRef.doc()
+    batch.set(newDocRef, doc)
+  })
+
+  return await batch.commit()
+}
+
 firebase.initializeApp(firebaseConfig)
 
 const auth = firebase.auth()
@@ -47,5 +82,12 @@ const provider = new firebase.auth.GoogleAuthProvider()
 // provider.setCustomParameters({ prompt: 'select_account' })
 const signInWithGoogle = () => auth.signInWithPopup(provider)
 
-export { auth, firestore, signInWithGoogle, createUserProfileDocument }
+export {
+  auth,
+  firestore,
+  signInWithGoogle,
+  createUserProfileDocument,
+  addCollectionAndDocumentsToDB,
+  convertCollectionsSnapshotToMap
+}
 export default firebase
