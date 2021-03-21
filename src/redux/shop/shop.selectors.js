@@ -11,12 +11,22 @@ export const collectionsSelectors = createSelector(
 // Convert Shop Object to Array. e.g. { first: 'hello', second: 'world'} => ['hello', 'world']
 export const collectionsInArraySelector = createSelector(
   [collectionsSelectors],
-  (collections) => Object.keys(collections).map((key) => collections[key])
+  (collections) =>
+    collections ? Object.keys(collections).map((key) => collections[key]) : []
 )
 
 export const collectionSelector = memoize((collectionUrlParam) =>
-  createSelector(
-    [collectionsSelectors],
-    (collections) => collections[collectionUrlParam]
+  createSelector([collectionsSelectors], (collections) =>
+    collections ? collections[collectionUrlParam] : null
   )
+)
+
+export const isCollectionFetchingSelector = createSelector(
+  [shopSelector],
+  (shop) => shop.isFetching
+)
+
+export const isCollectionsLoadedSelector = createSelector(
+  [shopSelector],
+  (shop) => !!shop.collections
 )
