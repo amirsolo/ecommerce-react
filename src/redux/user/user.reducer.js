@@ -15,6 +15,7 @@ const INITIAL_STATE = {
 
 const userReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action
+  // console.log({ type, payload })
 
   switch (type) {
     case GOOGLE_SIGNIN_START:

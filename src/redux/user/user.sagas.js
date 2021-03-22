@@ -46,14 +46,19 @@ export function* signInWithEmail({ payload: { email, password } }) {
     yield put(signInFailure(error.message))
   }
 }
+
 // *** Check the user session (check if it's authenticated) ***
 export function* isUserAuthenticated() {
   try {
     const userAuth = yield getCurrentUser()
-    if (!userAuth) return
+
+    if (!userAuth) {
+      throw new Error('User is not authenticated!')
+    }
+
     yield getSnapshopFromUserAuth(userAuth)
   } catch (error) {
-    yield put(signInFailure(error))
+    yield put(signInFailure(error.message))
   }
 }
 

@@ -26,6 +26,7 @@ class App extends React.Component {
     const { checkUserSession } = this.props
     checkUserSession()
   }
+
   render() {
     const { currentUser, isUserLoading } = this.props
 
