@@ -4,7 +4,6 @@ import './App.css'
 
 // Redux
 import { connect } from 'react-redux'
-import { setCurrentUser } from './redux/user/user.actions'
 import { createStructuredSelector } from 'reselect'
 import {
   currentUserSelector,
@@ -54,8 +53,4 @@ const mapStateToProps = createStructuredSelector({
   isUserLoading: isUserLoadingSelector
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps)(App)
