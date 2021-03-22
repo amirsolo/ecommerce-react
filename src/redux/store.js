@@ -1,19 +1,33 @@
 import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import thunk from 'redux-thunk'
+// import thunk from 'redux-thunk'
+import logger from 'redux-logger'
 import { persistStore } from 'redux-persist'
+import createSagaMiddleware from 'redux-saga'
+
+import rootSaga from './rootSaga'
 
 import rootReducer from './rootReducer'
 
+// Initiate Saga middleware
+const sagaMiddleware = createSagaMiddleware()
+
+// compose redux with devtools extension
 const enhancedComposer = composeWithDevTools({ trace: true })
 
-const middlewares = [thunk]
+// middlwares array
+const middlewares = [logger, sagaMiddleware]
 
+// redux store
 const store = createStore(
   rootReducer,
   enhancedComposer(applyMiddleware(...middlewares))
 )
 
+// Run sagas
+sagaMiddleware.run(rootSaga)
+
+// persisting parts of the store in browser storage
 const persistor = persistStore(store)
 
 export { store, persistor }

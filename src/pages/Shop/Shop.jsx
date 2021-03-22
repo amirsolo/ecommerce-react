@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom'
 
 // redux
 import { connect } from 'react-redux'
-import { fetchCollections } from '../../redux/shop/shop.actions'
+import { fetchCollectionsStart } from '../../redux/shop/shop.actions'
 
 // pages
 import CollectionContainer from '../Collection/Collection.container'
@@ -12,10 +12,10 @@ import CollectionOverviewContainer from '../../components/CollectionOverview/Col
 
 class Shop extends React.Component {
   componentDidMount() {
-    const { fetchCollections } = this.props
+    const { fetchCollectionsStart } = this.props
 
     // Fetch collections from DB
-    fetchCollections()
+    fetchCollectionsStart()
   }
 
   render() {
@@ -38,7 +38,7 @@ class Shop extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchCollections: () => dispatch(fetchCollections())
+  fetchCollectionsStart: () => dispatch(fetchCollectionsStart())
 })
 
 export default connect(null, mapDispatchToProps)(Shop)

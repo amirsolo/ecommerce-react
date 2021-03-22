@@ -78,9 +78,9 @@ const auth = firebase.auth()
 const firestore = firebase.firestore()
 
 // google auth provider
-const provider = new firebase.auth.GoogleAuthProvider()
+const googleProvider = new firebase.auth.GoogleAuthProvider()
 // provider.setCustomParameters({ prompt: 'select_account' })
-const signInWithGoogle = () => auth.signInWithPopup(provider)
+const signInWithGoogle = () => auth.signInWithPopup(googleProvider)
 
 export {
   auth,
@@ -88,6 +88,7 @@ export {
   signInWithGoogle,
   createUserProfileDocument,
   addCollectionAndDocumentsToDB,
-  convertCollectionsSnapshotToMap
+  convertCollectionsSnapshotToMap,
+  googleProvider
 }
 export default firebase
