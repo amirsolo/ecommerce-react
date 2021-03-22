@@ -72,6 +72,16 @@ const addCollectionAndDocumentsToDB = async (collectionKey, documentsArr) => {
   return await batch.commit()
 }
 
+// Get current user (check the auth state of the user)
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+      unsubscribe()
+      resolve(userAuth)
+    }, reject)
+  })
+}
+
 firebase.initializeApp(firebaseConfig)
 
 const auth = firebase.auth()

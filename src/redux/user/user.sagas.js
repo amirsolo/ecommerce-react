@@ -1,5 +1,9 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects'
-import { GOOGLE_SIGNIN_START, EMAIL_SIGNIN_START } from './user.types'
+import {
+  GOOGLE_SIGNIN_START,
+  EMAIL_SIGNIN_START,
+  CHECK_USER_SESSION
+} from './user.types'
 
 import { signInSuccess, signInFailure } from './user.actions'
 
@@ -7,7 +11,8 @@ import { signInSuccess, signInFailure } from './user.actions'
 import {
   auth,
   googleProvider,
-  createUserProfileDocument
+  createUserProfileDocument,
+  getCurrentUser
 } from '../../utils/firebase'
 
 export function* getSnapshopFromUserAuth(userAuth) {
@@ -41,6 +46,16 @@ export function* signInWithEmail({ payload: { email, password } }) {
     yield put(signInFailure(error.message))
   }
 }
+// *** Check the user session (check if it's authenticated) ***
+export function* isUserAuthenticated() {
+  try {
+    const userAuth = yield getCurrentUser()
+    if (!userAuth) return
+    yield getSnapshopFromUserAuth(userAuth)
+  } catch (error) {
+    yield put(signInFailure(error))
+  }
+}
 
 export function* onGoogleSignInStart() {
   yield takeLatest(GOOGLE_SIGNIN_START, signInWithGoogle)
@@ -50,6 +65,14 @@ export function* onEmailSignInStart() {
   yield takeLatest(EMAIL_SIGNIN_START, signInWithEmail)
 }
 
+export function* onCheckUserSession() {
+  yield takeLatest(CHECK_USER_SESSION, isUserAuthenticated)
+}
+
 export function* userSagas() {
-  yield all([call(onGoogleSignInStart), call(onEmailSignInStart)])
+  yield all([
+    call(onGoogleSignInStart),
+    call(onEmailSignInStart),
+    call(onCheckUserSession)
+  ])
 }

@@ -3,7 +3,8 @@ import {
   GOOGLE_SIGNIN_START,
   EMAIL_SIGNIN_START,
   SIGNIN_SUCCESS,
-  SIGNIN_FAILURE
+  SIGNIN_FAILURE,
+  CHECK_USER_SESSION
 } from './user.types'
 
 const INITIAL_STATE = {
@@ -18,6 +19,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
   switch (type) {
     case GOOGLE_SIGNIN_START:
     case EMAIL_SIGNIN_START:
+    case CHECK_USER_SESSION:
       return {
         ...state,
         isUserLoading: true

@@ -9,6 +9,7 @@ import {
   currentUserSelector,
   isUserLoadingSelector
 } from './redux/user/user.selectors'
+import { checkUserSession } from './redux/user/user.actions'
 
 // Pages
 import Home from './pages/Home/Home'
@@ -21,6 +22,10 @@ import Header from './components/Header/Header'
 import OverlaySpinner from './components/OverlaySpinner/OverlaySpinner'
 
 class App extends React.Component {
+  componentDidMount() {
+    const { checkUserSession } = this.props
+    checkUserSession()
+  }
   render() {
     const { currentUser, isUserLoading } = this.props
 
@@ -53,4 +58,8 @@ const mapStateToProps = createStructuredSelector({
   isUserLoading: isUserLoadingSelector
 })
 
-export default connect(mapStateToProps)(App)
+const mapDispatchToProps = (dispatch) => ({
+  checkUserSession: () => dispatch(checkUserSession())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
