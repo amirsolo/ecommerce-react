@@ -4,6 +4,7 @@ import {
   EMAIL_SIGNIN_START,
   SIGNIN_SUCCESS,
   SIGNIN_FAILURE,
+  SIGNUP_FAILURE,
   CHECK_USER_SESSION,
   SIGNOUT_SUCCESS,
   SIGNOUT_FAILURE
@@ -34,6 +35,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
         error: null
       }
     case SIGNIN_FAILURE:
+    case SIGNUP_FAILURE:
       return {
         ...state,
         isUserLoading: false,

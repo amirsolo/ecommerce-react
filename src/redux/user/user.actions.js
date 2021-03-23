@@ -6,6 +6,10 @@ import {
   EMAIL_SIGNIN_START,
   SIGNIN_SUCCESS,
   SIGNIN_FAILURE,
+  // Sign Up
+  SIGNUP_START,
+  SIGNUP_SUCCESS,
+  SIGNUP_FAILURE,
   // check user session
   CHECK_USER_SESSION,
   // Sign out
@@ -36,6 +40,24 @@ export const signInSuccess = (user) => ({
 
 export const signInFailure = (error) => ({
   type: SIGNIN_FAILURE,
+  payload: error
+})
+
+// ** Sign UP **
+export const signUpStart = (userCredentials) => {
+  return {
+    type: SIGNUP_START,
+    payload: userCredentials
+  }
+}
+
+export const signUpSuccess = ({ user, additionalData }) => ({
+  type: SIGNUP_SUCCESS,
+  payload: { user, additionalData }
+})
+
+export const signUpFailure = (error) => ({
+  type: SIGNUP_FAILURE,
   payload: error
 })
 
