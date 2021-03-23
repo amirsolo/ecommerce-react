@@ -1,7 +1,7 @@
 import React from 'react'
-import { auth } from '../../utils/firebase'
 
 import { connect } from 'react-redux'
+import { signOutStart } from '../../redux/user/user.actions'
 import { createStructuredSelector } from 'reselect'
 import { cartVisibilitySelector } from '../../redux/cart/cart.selectors'
 import { currentUserSelector } from '../../redux/user/user.selectors'
@@ -18,30 +18,37 @@ import {
   OptionLink
 } from './Header.styles'
 
-const Header = ({ currentUser, isCartHidden }) => (
-  <HeaderContainer>
-    <LogoContainer to='/'>
-      <Logo className='logo' />
-    </LogoContainer>
-    <OptionsContainer>
-      <OptionLink to='/shop'>SHOP</OptionLink>
-      <OptionLink to='/contact'>CONTACT</OptionLink>
-      {currentUser ? (
-        <OptionLink as='div' onClick={(e) => auth.signOut()}>
-          Sign out
-        </OptionLink>
-      ) : (
-        <OptionLink to='/auth'>Sign In</OptionLink>
-      )}
-      <CartIcon />
-    </OptionsContainer>
-    {!isCartHidden ? <CartDropdown /> : null}
-  </HeaderContainer>
-)
+const Header = ({ currentUser, isCartHidden }) => {
+  const { signOutStart } = this.props
+  return (
+    <HeaderContainer>
+      <LogoContainer to='/'>
+        <Logo className='logo' />
+      </LogoContainer>
+      <OptionsContainer>
+        <OptionLink to='/shop'>SHOP</OptionLink>
+        <OptionLink to='/contact'>CONTACT</OptionLink>
+        {currentUser ? (
+          <OptionLink as='div' onClick={signOutStart}>
+            Sign out
+          </OptionLink>
+        ) : (
+          <OptionLink to='/auth'>Sign In</OptionLink>
+        )}
+        <CartIcon />
+      </OptionsContainer>
+      {!isCartHidden ? <CartDropdown /> : null}
+    </HeaderContainer>
+  )
+}
 
 const mapStateToProps = createStructuredSelector({
   currentUser: currentUserSelector,
   isCartHidden: cartVisibilitySelector
 })
 
-export default connect(mapStateToProps)(Header)
+const mapDispatchToProps = (dispatch) => ({
+  signOutStart: () => dispatch(signOutStart())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

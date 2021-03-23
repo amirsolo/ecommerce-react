@@ -2,10 +2,16 @@ import { takeLatest, put, all, call } from 'redux-saga/effects'
 import {
   GOOGLE_SIGNIN_START,
   EMAIL_SIGNIN_START,
-  CHECK_USER_SESSION
+  CHECK_USER_SESSION,
+  SIGNOUT_START
 } from './user.types'
 
-import { signInSuccess, signInFailure } from './user.actions'
+import {
+  signInSuccess,
+  signInFailure,
+  signOutSuccess,
+  signOutFailure
+} from './user.actions'
 
 // Firebase utility functions
 import {
@@ -52,13 +58,20 @@ export function* isUserAuthenticated() {
   try {
     const userAuth = yield getCurrentUser()
 
-    if (!userAuth) {
-      throw new Error('User is not authenticated!')
-    }
+    if (!userAuth) return yield put(signInFailure('User is not authenticated!'))
 
     yield getSnapshopFromUserAuth(userAuth)
   } catch (error) {
     yield put(signInFailure(error.message))
+  }
+}
+// *** Sign out user ***
+export function* signOut() {
+  try {
+    yield auth.signOut()
+    yield put(signOutSuccess())
+  } catch (error) {
+    yield put(signOutFailure(error.message))
   }
 }
 
@@ -72,6 +85,9 @@ export function* onEmailSignInStart() {
 
 export function* onCheckUserSession() {
   yield takeLatest(CHECK_USER_SESSION, isUserAuthenticated)
+}
+export function* onUserSignOut() {
+  yield takeLatest(SIGNOUT_START, signOut)
 }
 
 export function* userSagas() {

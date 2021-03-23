@@ -1,11 +1,17 @@
 // Action types
 import {
   SET_CURRENT_USER,
+  // Sign in
   GOOGLE_SIGNIN_START,
   EMAIL_SIGNIN_START,
   SIGNIN_SUCCESS,
   SIGNIN_FAILURE,
-  CHECK_USER_SESSION
+  // check user session
+  CHECK_USER_SESSION,
+  // Sign out
+  SIGNOUT_START,
+  SIGNOUT_SUCCESS,
+  SIGNOUT_FAILURE
 } from './user.types'
 
 export const setCurrentUser = (user) => ({
@@ -36,4 +42,18 @@ export const signInFailure = (error) => ({
 // ** User session **
 export const checkUserSession = () => ({
   type: CHECK_USER_SESSION
+})
+
+// ** Sign Out **
+export const signOutStart = () => ({
+  type: SIGNOUT_START
+})
+
+export const signOutSuccess = () => ({
+  type: SIGNOUT_SUCCESS
+})
+
+export const signOutFailure = (error) => ({
+  type: SIGNOUT_FAILURE,
+  payload: error
 })

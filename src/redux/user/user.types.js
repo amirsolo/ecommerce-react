@@ -8,3 +8,8 @@ export const SIGNIN_FAILURE = 'SIGNIN_FAILURE'
 
 // check user session
 export const CHECK_USER_SESSION = 'CHECK_USER_SESSION'
+
+// Sign out
+export const SIGNOUT_START = 'SIGNOUT_START'
+export const SIGNOUT_SUCCESS = 'SIGNOUT_SUCCESS'
+export const SIGNOUT_FAILURE = 'SIGNOUT_FAILURE'
