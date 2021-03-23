@@ -18,29 +18,26 @@ import {
   OptionLink
 } from './Header.styles'
 
-const Header = ({ currentUser, isCartHidden }) => {
-  const { signOutStart } = this.props
-  return (
-    <HeaderContainer>
-      <LogoContainer to='/'>
-        <Logo className='logo' />
-      </LogoContainer>
-      <OptionsContainer>
-        <OptionLink to='/shop'>SHOP</OptionLink>
-        <OptionLink to='/contact'>CONTACT</OptionLink>
-        {currentUser ? (
-          <OptionLink as='div' onClick={signOutStart}>
-            Sign out
-          </OptionLink>
-        ) : (
-          <OptionLink to='/auth'>Sign In</OptionLink>
-        )}
-        <CartIcon />
-      </OptionsContainer>
-      {!isCartHidden ? <CartDropdown /> : null}
-    </HeaderContainer>
-  )
-}
+const Header = ({ currentUser, isCartHidden, signOutStart }) => (
+  <HeaderContainer>
+    <LogoContainer to='/'>
+      <Logo className='logo' />
+    </LogoContainer>
+    <OptionsContainer>
+      <OptionLink to='/shop'>SHOP</OptionLink>
+      <OptionLink to='/contact'>CONTACT</OptionLink>
+      {currentUser ? (
+        <OptionLink as='div' onClick={signOutStart}>
+          Sign out
+        </OptionLink>
+      ) : (
+        <OptionLink to='/auth'>Sign In</OptionLink>
+      )}
+      <CartIcon />
+    </OptionsContainer>
+    {!isCartHidden ? <CartDropdown /> : null}
+  </HeaderContainer>
+)
 
 const mapStateToProps = createStructuredSelector({
   currentUser: currentUserSelector,

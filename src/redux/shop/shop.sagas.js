@@ -1,4 +1,4 @@
-import { takeLatest, put, call } from 'redux-saga/effects'
+import { takeLatest, put, all, call } from 'redux-saga/effects'
 
 // aciton types
 import { FETCH_COLLECTIONS_START } from './shop.types'
@@ -34,4 +34,8 @@ export function* fetchCollectionsAsync() {
 // listen for FETCH_COLLECTIONS_START
 export function* fetchCollectionsStart() {
   yield takeLatest(FETCH_COLLECTIONS_START, fetchCollectionsAsync)
+}
+
+export function* shopSagas() {
+  yield all([call(fetchCollectionsStart)])
 }
