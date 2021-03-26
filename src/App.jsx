@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import './App.css'
 
@@ -21,37 +21,32 @@ import Checkout from './pages/Checkout/Checkout'
 import Header from './components/Header/Header'
 import OverlaySpinner from './components/OverlaySpinner/OverlaySpinner'
 
-class App extends React.Component {
-  componentDidMount() {
-    const { checkUserSession } = this.props
+const App = ({ isUserLoading, currentUser, checkUserSession }) => {
+  useEffect(() => {
     checkUserSession()
-  }
+  }, [checkUserSession])
 
-  render() {
-    const { currentUser, isUserLoading } = this.props
-
-    return (
-      <div>
-        {isUserLoading ? (
-          <OverlaySpinner />
-        ) : (
-          <div>
-            <Header />
-            <Switch>
-              <Route exact path='/' component={Home} />
-              <Route path='/shop' component={Shop} />
-              <Route exact path='/checkout' component={Checkout} />
-              <Route
-                exact
-                path='/auth'
-                render={() => (!currentUser ? <Auth /> : <Redirect to='/' />)}
-              />
-            </Switch>
-          </div>
-        )}
-      </div>
-    )
-  }
+  return (
+    <div>
+      {isUserLoading ? (
+        <OverlaySpinner />
+      ) : (
+        <div>
+          <Header />
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route path='/shop' component={Shop} />
+            <Route exact path='/checkout' component={Checkout} />
+            <Route
+              exact
+              path='/auth'
+              render={() => (!currentUser ? <Auth /> : <Redirect to='/' />)}
+            />
+          </Switch>
+        </div>
+      )}
+    </div>
+  )
 }
 
 const mapStateToProps = createStructuredSelector({

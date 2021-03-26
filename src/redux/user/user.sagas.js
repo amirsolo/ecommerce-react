@@ -56,10 +56,9 @@ export function* signInWithEmail({
   payload: { displayName, email, password }
 }) {
   try {
-    const { user } = yield auth.createUserWithEmailAndPassword(email, password)
+    const { user } = yield auth.signInWithEmailAndPassword(email, password)
     yield createUserProfileDocument(user, { displayName })
 
-    // const { user } = yield auth.signInWithEmailAndPassword(email, password)
     yield getSnapshopFromUserAuth(user)
   } catch (error) {
     yield put(signInFailure(error.message))
