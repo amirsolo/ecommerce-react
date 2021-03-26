@@ -1,6 +1,5 @@
 const express = require('express')
 const path = require('path')
-const dotenv = require('dotenv')
 
 const cors = require('cors')
 
@@ -34,8 +33,10 @@ app.post('/payment', (req, res) => {
 
   stripe.charges.create(body, (stripeErr, stripeRes) => {
     if (stripeErr) {
+      console.log({ stripeErr })
       res.status(500).send({ error: stripeErr })
     } else {
+      console.log({ stripeErr })
       res.status(200).send({ success: stripeRes })
     }
   })

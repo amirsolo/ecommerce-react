@@ -25,8 +25,8 @@
   },
   "homepage": "https://github.com/amirsolo/ecommerce-react#readme",
   "devDependencies": {
-    "concurrently": "*",
-    "nodemon": "*"
+    "concurrently": "^6.0.0",
+    "nodemon": "^2.0.7"
   },
   "dependencies": {
     "cors": "^2.8.5",
