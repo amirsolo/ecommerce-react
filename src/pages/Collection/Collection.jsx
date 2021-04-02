@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { collectionSelector } from '../../redux/shop/shop.selectors'
 
 // components
@@ -8,8 +8,12 @@ import CollectionItem from '../../components/CollectionItem/CollectionItem'
 
 import './Collection.scss'
 
-const Category = ({ collection }) => {
-  const { title, items } = collection
+const Category = ({ match }) => {
+  // get collection from store
+  const { title, items } = useSelector(
+    collectionSelector(match.params.collectionId)
+  )
+
   return (
     <div className='collection-page'>
       <h2 className='title'>{title}</h2>
@@ -22,8 +26,4 @@ const Category = ({ collection }) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  collection: collectionSelector(ownProps.match.params.collectionId)(state)
-})
-
-export default connect(mapStateToProps)(Category)
+export default Category
